@@ -1,14 +1,17 @@
-SRC = src/main.c
-OBJ = $(SRC:.c=.o)
+CC = gcc
 
-LDFLAGS = -Wall -Werror -std=c17
+SRC = src/main.c
+
+CFLAGS = -Wall -Werror -std=c17 -Os -fomit-frame-pointer
 
 NAME = bf
 
-$(NAME): $(OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
-
-.PHONY: clean
+$(NAME):
+	$(CC) $(SRC) -o $(NAME) $(CFLAGS) -I./include
 
 clean:
-	rm -f $(OBJ) myprog
+	rm -f $(OBJ) bf
+
+re: clean $(NAME)
+
+.PHONY: clean
