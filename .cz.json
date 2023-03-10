@@ -1,0 +1,76 @@
+{
+    "commitizen": {
+        "name": "cz_customize",
+        "customize": {
+            "message_template": "[{{change_type}}]{% if show_message %} {{message}}{% endif %}",
+            "example": "[Feature]: this feature enable customize through config file",
+            "schema": "[<type>] <body>",
+            "schema_pattern": "\\[(WIP-Building|WIP-Not-Building|Feature|Fix|Merge|Revert|Doc|Test|Assets|Build|Refactor|Style)\\](\\s.*)",
+            "info": "This is customized info",
+            "commit_parser": "^\\[(?P<change_type>feature|WIP-Building|WIP-Not-Building|fix|merge|revert|doc|test|assets|build|refactor|style)\\]\\s(?P<message>.*)?",
+            "change_type_map": {
+                "feature": "feat",
+                "fix": "fix"
+            },
+            "questions": [
+                {
+                    "type": "list",
+                    "name": "change_type",
+                    "choices": [
+                        {
+                            "value": "feat",
+                            "name": "feat: A new feature."
+                        },
+                        {
+                            "value": "fix",
+                            "name": "fix: A bug fix."
+                        },
+                        {
+                            "value": "merge",
+                            "name": "merge: A branch merge."
+                        },
+                        {
+                            "value": "revert",
+                            "name": "revert: Reverting change(s)."
+                        },
+                        {
+                            "value": "doc",
+                            "name": "doc: A doc modification."
+                        },
+                        {
+                            "value": "test",
+                            "name": "test: A test modification."
+                        },
+                        {
+                            "value": "build",
+                            "name": "build: A modification in the build logic."
+                        },
+                        {
+                            "value": "refactor",
+                            "name": "refactor: A modification in present feature logic."
+                        },
+                        {
+                            "value": "style",
+                            "name": "style: A modification in code style without logic changes."
+                        },
+                        {
+                            "value": "wip",
+                            "name": "wip: A partial, not working modification."
+                        }
+                    ],
+                    "message": "Select the type of change you are committing"
+                },
+                {
+                    "type": "input",
+                    "name": "message",
+                    "message": "This commit will:"
+                },
+                {
+                    "type": "confirm",
+                    "name": "show_message",
+                    "message": "Do you want to add body message in commit?"
+                }
+            ]
+        }
+    }
+}
