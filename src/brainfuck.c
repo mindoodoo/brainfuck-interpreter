@@ -6,6 +6,7 @@
 
 #include "brainfuck.h"
 
+// Init empty tape
 bf_state_t *init_tape(void) {
     bf_state_t *tape = (bf_state_t*) calloc(1, sizeof(bf_state_t));
 
