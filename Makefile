@@ -4,7 +4,7 @@ SRC = 	src/main.c \
 		src/brainfuck.c \
 		src/utils.c
 
-CFLAGS = -Wall -Werror -std=c17 -Os -fomit-frame-pointer
+CFLAGS = -Wall -Werror -std=c17 -Os -fomit-frame-pointer -g3
 
 NAME = bf
 

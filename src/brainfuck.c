@@ -48,7 +48,8 @@ int run_head(bf_state_t *s) {
             s->pgm_head++;
             break;
         case '.':
-            UNIMPLEMENTED
+            printf("%c", s->tape[s->tape_head]);
+            s->pgm_head++;
             break;
         case ',':
             UNIMPLEMENTED
@@ -81,7 +82,7 @@ int is_state_valid(bf_state_t *s) {
 int run_state(bf_state_t *s) {
     int output = 0;
 
-    while ((output = is_state_valid(s)))
+    while (!(output = is_state_valid(s)))
         if ((output = run_head(s)))
             break;
     return output;
