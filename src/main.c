@@ -8,8 +8,10 @@
 #include "brainfuck.h"
 
 char *check_args(int ac, char **av) {
-    if (ac != 2)
+    if (ac != 2) {
         fprintf(stderr, "Invalid number of arguments...");
+        return NULL;
+    }
     return av[1];
 }
 

@@ -13,7 +13,7 @@ bf_state_t *init_tape(char *filename) {
     s->tape = (byte*) calloc(TAPE_SIZE, sizeof(byte));
     s->tape_size = TAPE_SIZE;
 
-    if (!(s->pgm = read_file(filename))) {
+    if (!(s->pgm = read_file(filename, &s->pgm_size))) {
         free(s->tape);
         free(s);
         return NULL;

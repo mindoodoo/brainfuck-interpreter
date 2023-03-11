@@ -9,7 +9,7 @@
 #include "brainfuck.h"
 
 // Read file into byte buffer
-byte* read_file(const char *filename) {
+byte* read_file(const char *filename, size_t *size) {
     FILE *file = fopen(filename, "rb");  // Open file in binary mode
     if (!file) {
         return NULL;
@@ -17,17 +17,17 @@ byte* read_file(const char *filename) {
 
     // Get file size
     fseek(file, 0, SEEK_END);
-    size_t file_size = ftell(file);
+    *size = ftell(file);
     fseek(file, 0, SEEK_SET);
 
-    byte *file_content = (byte*) calloc(file_size, 1);
+    byte *file_content = (byte*) calloc(*size, 1);
     if (!file_content) {
         fclose(file);
         return NULL;
     }
 
     // Read file contents
-    fread(file_content, 1, file_size, file);
+    fread(file_content, 1, *size, file);
     fclose(file);
     return file_content;
 }

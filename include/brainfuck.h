@@ -31,4 +31,4 @@ bf_state_t *init_state(char *filename);
 
 // ─── Utilities ───────────────────────────────────────────────────────────────────────────────────
 
-byte* read_file(const char *filename);
+byte* read_file(const char *filename, size_t *size);
