@@ -7,6 +7,16 @@
 #include <stdio.h>
 #include "brainfuck.h"
 
+char *check_args(int ac, char **av) {
+    if (ac != 2)
+        fprintf(stderr, "Invalid number of arguments...");
+    return av[1];
+}
+
 int main(int ac, char **av) {
-    printf("Hello world!");
+    char *filename;
+
+    if (!(filename = check_args(ac, av)))
+        return 1;
+    return 0;
 }

@@ -15,9 +15,20 @@
 typedef unsigned char byte;
 
 typedef struct bf_state_s {
+    // Tape
     byte *tape;
     size_t tape_size;
+    size_t tape_head;
+    // Program
+    byte *pgm;
+    size_t pgm_size;
+    size_t pgm_head;
 } bf_state_t;
 
-// Initializes empty tape of size TAPE_SIZE
-bf_state_t *init_tape(void);
+// Initializes bf_state_t
+// also loads program
+bf_state_t *init_state(char *filename);
+
+// ─── Utilities ───────────────────────────────────────────────────────────────────────────────────
+
+byte* read_file(const char *filename);

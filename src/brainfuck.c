@@ -6,11 +6,18 @@
 
 #include "brainfuck.h"
 
-// Init empty tape
-bf_state_t *init_tape(void) {
-    bf_state_t *tape = (bf_state_t*) calloc(1, sizeof(bf_state_t));
+// Initializes bf_state_t
+bf_state_t *init_tape(char *filename) {
+    bf_state_t *s = (bf_state_t*) calloc(1, sizeof(bf_state_t));
 
-    tape->tape = (byte*) calloc(TAPE_SIZE, sizeof(byte));
-    tape->tape_size = TAPE_SIZE;
-    return tape;
+    s->tape = (byte*) calloc(TAPE_SIZE, sizeof(byte));
+    s->tape_size = TAPE_SIZE;
+
+    if (!(s->pgm = read_file(filename))) {
+        free(s->tape);
+        free(s);
+        return NULL;
+    }
+
+    return s;
 }
