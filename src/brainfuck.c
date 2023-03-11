@@ -43,10 +43,14 @@ int run_head(bf_state_t *s) {
             s->pgm_head++;
             break;
         case '[':
-            UNIMPLEMENTED
+            if (!s->tape[s->tape_head])
+                if (move_to_corresponding_bracket(s))
+                    return NO_MATCHING_BRACKET;
             break;
         case ']':
-            UNIMPLEMENTED
+            if (s->tape[s->tape_head])
+                if (move_to_corresponding_bracket(s))
+                    return NO_MATCHING_BRACKET;
             break;
         default:
             s->pgm_head++;

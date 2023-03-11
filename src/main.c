@@ -27,5 +27,5 @@ int main(int ac, char **av) {
         return 1;
     if ((output = run_state(s)) <= 1)
         return 0;
-    return 0;
+    return 1;
 }

@@ -57,3 +57,40 @@ int is_state_valid(bf_state_t *s) {
         return PGM_OVER;
     return 0;
 }
+
+int move_to_corresponding_bracket(bf_state_t *s) {
+    int step;
+    char target;
+    char opening;
+    int opening_count = 0;
+    int closing_count = 0;
+    char head_instruction = head_instr(s);
+
+    if (head_instruction != '[' && head_instruction != ']')
+        return 1;
+
+    if (head_instruction == '[') {
+        step = 1;
+        target = ']';
+        opening = '[';
+    } else if (head_instruction == ']') {
+        step = -1;
+        target = '[';
+        opening = ']';
+    } else
+        return 0;
+
+    while (opening_count != closing_count) {
+        head_instruction = head_instr(s);
+
+        if (head_instruction == opening)
+            opening_count++;
+        else if (head_instruction == target)
+            closing_count++;
+        if (s->pgm_head == 0 || s->pgm_head == s->tape_size - 1)
+            return 1;
+        s->pgm_head += step;
+    }
+
+    return 0;
+}
