@@ -10,27 +10,24 @@
 
 // Read file into byte buffer
 byte* read_file(const char *filename) {
-    FILE *file = fopen(filename, "rb");  // Open the file in binary mode
+    FILE *file = fopen(filename, "rb");  // Open file in binary mode
     if (!file) {
-        return NULL;  // Return NULL if the file could not be opened
+        return NULL;
     }
 
-    // Determine the file size
+    // Get file size
     fseek(file, 0, SEEK_END);
     size_t file_size = ftell(file);
     fseek(file, 0, SEEK_SET);
 
-    // Allocate memory for the file content
     byte *file_content = (byte*) calloc(file_size, 1);
     if (!file_content) {
         fclose(file);
-        return NULL;  // Return NULL if memory allocation failed
+        return NULL;
     }
 
-    // Read the file content into the buffer
+    // Read file contents
     fread(file_content, 1, file_size, file);
-
-    fclose(file);  // Close the file
-
-    return file_content;  // Return the buffer containing the file content
+    fclose(file);
+    return file_content;
 }
