@@ -31,3 +31,29 @@ char* read_file(const char *filename, size_t *size) {
     fclose(file);
     return file_content;
 }
+
+// Initializes bf_state_t
+bf_state_t *init_state(char *filename) {
+    bf_state_t *s = (bf_state_t*) calloc(1, sizeof(bf_state_t));
+
+    s->tape = (byte*) calloc(TAPE_SIZE, sizeof(byte));
+    s->tape_size = TAPE_SIZE;
+
+    if (!(s->pgm = read_file(filename, &s->pgm_size))) {
+        free(s->tape);
+        free(s);
+        return NULL;
+    }
+
+    return s;
+}
+
+int is_state_valid(bf_state_t *s) {
+    if (s->tape_head >= s->tape_size) {
+        fprintf(stderr, "Error: tape head has overflowed.");
+        return HEAD_OVERFLOW;
+    }
+    if (s->pgm_head >= s->pgm_size)
+        return PGM_OVER;
+    return 0;
+}
