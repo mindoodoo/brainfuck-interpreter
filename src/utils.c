@@ -62,7 +62,7 @@ int move_to_corresponding_bracket(bf_state_t *s) {
     int step;
     char target;
     char opening;
-    int opening_count = 0;
+    int opening_count = 1;
     int closing_count = 0;
     char head_instruction = head_instr(s);
 
@@ -81,6 +81,7 @@ int move_to_corresponding_bracket(bf_state_t *s) {
         return 0;
 
     while (opening_count != closing_count) {
+        s->pgm_head += step;
         head_instruction = head_instr(s);
 
         if (head_instruction == opening)
@@ -89,7 +90,6 @@ int move_to_corresponding_bracket(bf_state_t *s) {
             closing_count++;
         if (s->pgm_head == 0 || s->pgm_head == s->tape_size - 1)
             return 1;
-        s->pgm_head += step;
     }
 
     return 0;
