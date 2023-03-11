@@ -16,9 +16,16 @@ char *check_args(int ac, char **av) {
 }
 
 int main(int ac, char **av) {
-    char *filename;
+    char *filename = NULL;
+    bf_state_t *s = NULL;
+    int output = 0;
 
     if (!(filename = check_args(ac, av)))
         return 1;
+
+    if (!(s = init_state(filename)))
+        return 1;
+    if ((output = run_state(s)) <= 1)
+        return 0;
     return 0;
 }
