@@ -52,7 +52,11 @@ int run_head(bf_state_t *s) {
             s->pgm_head++;
             break;
         case ',':
-            UNIMPLEMENTED
+            byte c = 0;
+            if ((c = getc(stdin)) == EOF)
+                c = 0;
+            s->tape[s->tape_head] = c;
+            s->pgm_head++;
             break;
         case '[':
             UNIMPLEMENTED
