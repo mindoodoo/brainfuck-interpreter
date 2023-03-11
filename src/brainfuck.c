@@ -34,6 +34,8 @@ int run_head(bf_state_t *s) {
             s->pgm_head++;
             break;
         case '<':
+            if (s->tape_head == 0)
+                return HEAD_OVERFLOW;
             s->tape_head--;
             s->pgm_head++;
             break;
