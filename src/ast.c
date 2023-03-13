@@ -12,7 +12,7 @@ ast_node_t *parse_tokens(char *content, size_t size) {
     ast_node_t *head = NULL;
     ast_node_t *last = NULL;
     ast_node_t *temp = NULL;
-    
+
     for (size_t i = 0; i < size; i++) {
         if (!(temp = parse_token(content[i])))
             continue;
@@ -21,7 +21,7 @@ ast_node_t *parse_tokens(char *content, size_t size) {
             if (!(temp->loop_content = parse_loop(content, &i, size)))
                 return NULL;
         }
-        
+
         // Link to head and replace head
         if (head) {
             last->next = temp;
@@ -49,10 +49,9 @@ ast_node_t *parse_loop(char *content, size_t *index, size_t size) {
     for (;*index < size; (*index)++) {
         // Scope tracking
         if (content[*index] == ']') {
-            if (closing_count + 1 == opening_count) {
-                (*index)++;
+            if (closing_count + 1 == opening_count)
                 break;
-            } else
+            else
                 closing_count++;
         } else if (content[*index] == '[')
             opening_count++;
@@ -60,11 +59,14 @@ ast_node_t *parse_loop(char *content, size_t *index, size_t size) {
         // Attempt to parse
         if (!(temp = parse_token(content[*index])))
             continue;
-        
+
         // Parse loop
-        if (temp->type == Loop)
+        if (temp->type == Loop) {
             if (!(temp->loop_content = parse_loop(content, index, size)))
                 return NULL;
+            else
+                closing_count++;
+        }
 
         // Link
         if (head) {
@@ -82,7 +84,7 @@ ast_node_t *parse_loop(char *content, size_t *index, size_t size) {
 // Parses token (char) into single AST struct instance (allocated)
 ast_node_t *parse_token(char token) {
     ast_node_t *output = calloc(1, sizeof(ast_node_t));
-    
+
     switch (token) {
         case '>':
             output->type = MoveRight;

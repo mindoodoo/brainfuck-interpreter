@@ -28,6 +28,6 @@ int main(int ac, char **av) {
     if (!(file_content = read_file(filename, &file_size)))
         return 1;
     ast_node_t *ast_head = parse_tokens(file_content, file_size);
-    
+
     return output;
 }
