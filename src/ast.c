@@ -8,10 +8,10 @@
 #include "brainfuck.h"
 
 // Parses file contents into an AST
-ast_node_t *parse_tokens(char *content, size_t size) {
-    ast_node_t *head = NULL;
-    ast_node_t *last = NULL;
-    ast_node_t *temp = NULL;
+ast_node *parse_tokens(char *content, size_t size) {
+    ast_node *head = NULL;
+    ast_node *last = NULL;
+    ast_node *temp = NULL;
 
     for (size_t i = 0; i < size; i++) {
         if (!(temp = parse_token(content[i])))
@@ -36,10 +36,10 @@ ast_node_t *parse_tokens(char *content, size_t size) {
 }
 
 // Parses loop content into AST
-ast_node_t *parse_loop(char *content, size_t *index, size_t size) {
-    ast_node_t *head = NULL;
-    ast_node_t *last = NULL;
-    ast_node_t *temp = NULL;
+ast_node *parse_loop(char *content, size_t *index, size_t size) {
+    ast_node *head = NULL;
+    ast_node *last = NULL;
+    ast_node *temp = NULL;
     int opening_count = 1;
     int closing_count = 0;
 
@@ -82,8 +82,8 @@ ast_node_t *parse_loop(char *content, size_t *index, size_t size) {
 }
 
 // Parses token (char) into single AST struct instance (allocated)
-ast_node_t *parse_token(char token) {
-    ast_node_t *output = calloc(1, sizeof(ast_node_t));
+ast_node *parse_token(char token) {
+    ast_node *output = calloc(1, sizeof(ast_node));
 
     switch (token) {
         case '>':
