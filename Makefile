@@ -5,7 +5,7 @@ SRC = 	src/main.c \
 		src/utils.c \
 		src/ast.c
 
-CFLAGS = -Wall -std=c17 -fomit-frame-pointer -g3
+CFLAGS = -Wall -std=c17 -g3
 
 NAME = bf
 

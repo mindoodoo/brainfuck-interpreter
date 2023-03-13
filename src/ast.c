@@ -43,6 +43,8 @@ ast_node_t *parse_loop(char *content, size_t *index, size_t size) {
     int opening_count = 1;
     int closing_count = 0;
 
+    (*index)++;
+
     // This will also increment the index of the caller
     for (;*index < size; (*index)++) {
         // Scope tracking

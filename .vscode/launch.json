@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${cwd}/bf",
-            "args": ["sample_programs/sandbox.b"],
+            "args": ["sample_programs/hello_world.b"],
             "stopAtEntry": false,
             "cwd": "${cwd}",
             "environment": [],
