@@ -2,9 +2,10 @@ CC = gcc
 
 SRC = 	src/main.c \
 		src/brainfuck.c \
-		src/utils.c
+		src/utils.c \
+		src/ast.c
 
-CFLAGS = -Wall -Werror -std=c17 -fomit-frame-pointer -g3
+CFLAGS = -Wall -std=c17 -fomit-frame-pointer -g3
 
 NAME = bf
 

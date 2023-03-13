@@ -17,7 +17,7 @@ char *check_args(int ac, char **av) {
 
 int main(int ac, char **av) {
     char *filename = NULL;
-    size_t file_size;
+    size_t file_size = 0;
     char *file_content = NULL;
     int output = 0;
 
@@ -27,6 +27,7 @@ int main(int ac, char **av) {
     // Read file and parse
     if (!(file_content = read_file(filename, &file_size)))
         return 1;
+    ast_node_t *ast_head = parse_tokens(file_content, file_size);
     
     return output;
 }

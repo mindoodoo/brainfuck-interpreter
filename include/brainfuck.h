@@ -25,7 +25,7 @@ enum Ast {
 typedef struct ast_node_s {
     enum Ast type;
     struct ast_node_s *next;           // Null terminated
-    struct ast_node_s *loop_content;   // If loop, NULL terminated array of nodes
+    struct ast_node_s *loop_content;   // If loop, Ast linked list of contents
 } ast_node_t;
 
     // ─── Ast Functions ───────────────────────────────────────────────────────────────────────

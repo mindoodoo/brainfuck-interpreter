@@ -10,27 +10,71 @@
 // Parses file contents into an AST
 ast_node_t *parse_tokens(char *content, size_t size) {
     ast_node_t *head = NULL;
+    ast_node_t *last = NULL;
     ast_node_t *temp = NULL;
-    ast_node_t *loop_temp = NULL;
     
     for (size_t i = 0; i < size; i++) {
         if (!(temp = parse_token(content[i])))
             continue;
         if (temp->type == Loop) {
             // Attempt to parse loop content and set it
-            if (!(loop_temp = parse_loop(content, &i, size)))
+            if (!(temp->loop_content = parse_loop(content, &i, size)))
                 return NULL;
-            temp->loop_content = loop_temp;
         }
+        
         // Link to head and replace head
-        head->next = temp;
-        head = temp;
+        if (head) {
+            last->next = temp;
+            last = temp;
+        } else {
+            head = temp;
+            last = temp;
+        }
     }
+
+    return head;
 }
 
 // Parses loop content into AST
 ast_node_t *parse_loop(char *content, size_t *index, size_t size) {
+    ast_node_t *head = NULL;
+    ast_node_t *last = NULL;
+    ast_node_t *temp = NULL;
+    int opening_count = 1;
+    int closing_count = 0;
 
+    // This will also increment the index of the caller
+    for (;*index < size; (*index)++) {
+        // Scope tracking
+        if (content[*index] == ']') {
+            if (closing_count + 1 == opening_count) {
+                (*index)++;
+                break;
+            } else
+                closing_count++;
+        } else if (content[*index] == '[')
+            opening_count++;
+
+        // Attempt to parse
+        if (!(temp = parse_token(content[*index])))
+            continue;
+        
+        // Parse loop
+        if (temp->type == Loop)
+            if (!(temp->loop_content = parse_loop(content, index, size)))
+                return NULL;
+
+        // Link
+        if (head) {
+            last->next = temp;
+            last = temp;
+        } else {
+            head = temp;
+            last = temp;
+        }
+    }
+
+    return head;
 }
 
 // Parses token (char) into single AST struct instance (allocated)
