@@ -24,13 +24,20 @@ enum Ast {
 // Structure describing the abstract syntaxe tree we parse into
 typedef struct ast_node_s {
     enum Ast type;
-    ast_node_t *next;           // Null terminated
-    ast_node_t *loop_content;   // If loop, NULL terminated array of nodes
+    struct ast_node_s *next;           // Null terminated
+    struct ast_node_s *loop_content;   // If loop, NULL terminated array of nodes
 } ast_node_t;
 
     // ─── Ast Functions ───────────────────────────────────────────────────────────────────────
 
-// Parses
+// Parses file contents into an AST
+ast_node_t *parse_tokens(char *content, size_t size);
+
+// Parses loop content into AST
+ast_node_t *parse_loop(char *content, size_t *index, size_t size);
+
+// Parses token (char) into single AST struct instance (allocated)
+ast_node_t *parse_token(char token);
 
 // ─── Utilities ───────────────────────────────────────────────────────────────────────────────────
 

@@ -28,6 +28,5 @@ int main(int ac, char **av) {
     if (!(file_content = read_file(filename, &file_size)))
         return 1;
     
-
-    return 0;
+    return output;
 }
